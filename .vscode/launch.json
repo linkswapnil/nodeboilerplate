@@ -22,7 +22,8 @@
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
             "runtimeArgs": [
-              "--nolazy"
+              "--nolazy",
+              "--compilers js:babel-core/register"
             ],
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
