@@ -15,8 +15,9 @@
 * git clone https://github.com/linkswapnil/nodeboilerplate.git
 * sudo npm install -g webpack
 * sudo chmod 777 nodeboilerplate
-* If you encounter problem with node-sass
-* sudo npm rebuild node-sass --force
+* npm install
+
+If you encounter problem with node-sass run sudo npm rebuild node-sass --force
 
 ## How to build an application?
 
