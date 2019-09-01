@@ -1,11 +1,3 @@
-# boilerplate-babel-webpack
-
-[![npm version](https://badge.fury.io/js/boilerplate-babel-webpack.svg)](https://badge.fury.io/js/boilerplate-babel-webpack)
-[![downloads count](https://img.shields.io/npm/dt/boilerplate-babel-webpack.svg)](https://www.npmjs.com/~piecioshka)
-[![dependencies](https://david-dm.org/piecioshka/boilerplate-babel-webpack.svg)](https://github.com/piecioshka/boilerplate-babel-webpack)
-
-:fork_and_knife: Starter with Babel.js and Webpack
-
 ## Features
 
 * :white_check_mark: Webpack `v4.31.0`
@@ -92,7 +84,3 @@ If you would like to check how much a bundle file weight:
 npm run build
 npm run audit
 ```
-
-## License
-
-[The MIT License](http://piecioshka.mit-license.org) @ 2017
