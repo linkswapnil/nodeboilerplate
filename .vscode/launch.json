@@ -8,12 +8,22 @@
             "type": "node",
             "request": "launch",
             "name": "StartNode",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+            "runtimeArgs": [
+              "--nolazy"
+            ],
             "program": "${workspaceFolder}/bin/www"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "Mocha All",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+            "runtimeArgs": [
+              "--nolazy"
+            ],
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "--timeout",
@@ -28,6 +38,11 @@
             "type": "node",
             "request": "launch",
             "name": "Mocha Current File",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+            "runtimeArgs": [
+              "--nolazy"
+            ],
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "--timeout",
