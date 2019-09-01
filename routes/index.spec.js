@@ -7,16 +7,14 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Index Router', () => {
-	it('renders index page', () => {
+	it('renders index page', done => {
 		chai.request(server)
 			.get('/')
-			.end((err, res) => {
+			.end((_err, res) => {
 				try {
 					res.should.have.status(200);
-					res.body.should.be.a('array');
-					res.body.length.should.be.eql(0);
 					done();
-				}catch (e) {
+				} catch (e) {
 					done(e);
 				}
 			});
