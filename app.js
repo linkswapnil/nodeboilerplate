@@ -1,3 +1,5 @@
+import users from './routes/users';
+
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -28,6 +30,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/resources', express.static(path.join(__dirname, 'resources')));
 
 app.use('/', indexRouter);
+app.use('/users', users);
 
 // Catch 404 and forward to error handler
 app.use((req, res) => {
