@@ -1,6 +1,8 @@
 /* eslint-disable new-cap */
 import fs from 'fs';
 import express from 'express';
+import validate from 'express-validation';
+import userValidator from '../validators/user';
 
 const users = JSON.parse(fs.readFileSync('./files/users.json'));
 
@@ -13,7 +15,7 @@ router.get('/', (req, res) => {
 	res.render('users', context);
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', validate(userValidator), (req, res, next) => {
 	const {user} = req.body;
 	users.push(user);
 	fs.writeFileSync('./files/users.json', JSON.stringify(users));
