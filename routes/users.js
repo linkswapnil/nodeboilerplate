@@ -1,29 +1,8 @@
 /* eslint-disable new-cap */
+import fs from 'fs';
 import express from 'express';
 
-const users = [
-	{
-		id: 1,
-		name: 'User 1',
-		emailId: 'user1@gmail.com',
-		age: 29,
-		Address: 'Pune'
-	},
-	{
-		id: 2,
-		name: 'User 2',
-		emailId: 'user2@gmail.com',
-		age: 29,
-		Address: 'Pune'
-	},
-	{
-		id: 3,
-		name: 'User 3',
-		emailId: 'user3@gmail.com',
-		age: 29,
-		Address: 'Pune'
-	}
-];
+const users = JSON.parse(fs.readFileSync('./files/users.json'));
 
 const router = express.Router();
 
@@ -37,6 +16,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res, next) => {
 	const {user} = req.body;
 	users.push(user);
+	fs.writeFileSync('./files/users.json', JSON.stringify(users));
 	res.send(users);
 });
 
@@ -49,6 +29,7 @@ router.put('/:id', (req, res, next) => {
 			users[i].id = userId;
 		}
 	}
+	fs.writeFileSync('./files/users.json', JSON.stringify(users));
 	res.send(users);
 });
 
@@ -67,6 +48,7 @@ router.delete('/:id', (req, res, next) => {
 	} else {
 		users.splice(index, 1);
 	}
+	fs.writeFileSync('./files/users.json', JSON.stringify(users));
 	res.send(users);
 });
 
