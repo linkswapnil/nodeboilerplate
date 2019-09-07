@@ -3,6 +3,7 @@ import fs from 'fs';
 import express from 'express';
 import validate from 'express-validation';
 import userValidator from '../validators/user';
+import userModel from '../models/usermodel';
 
 const users = JSON.parse(fs.readFileSync('./files/users.json'));
 
@@ -15,11 +16,14 @@ router.get('/', (req, res) => {
 	res.render('users', context);
 });
 
-router.post('/', validate(userValidator), (req, res, next) => {
+router.post('/', validate(userValidator), async (req, res, next) => {
 	const {user} = req.body;
-	users.push(user);
-	fs.writeFileSync('./files/users.json', JSON.stringify(users));
-	res.send(users);
+	try {
+		const newUser = await userModel.createUser(user);
+		res.send('User Created Succesfully' + newUser.id);
+	} catch (err) {
+		res.satus(500).send('Failed to create user' + err);
+	}
 });
 
 router.put('/:id', (req, res, next) => {
