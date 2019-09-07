@@ -1,7 +1,9 @@
 /* eslint-disable handle-callback-err */
 import mongoose from 'mongoose';
+import autoIncrement from 'mongoose-auto-increment';
 
 const db = mongoose.createConnection('mongodb://localhost/training', {useNewUrlParser: true});
+autoIncrement.initialize(db);
 const {Schema} = mongoose;
 
 const userAttributes = {
@@ -13,15 +15,7 @@ const userAttributes = {
 };
 
 const UserSchema = new Schema(userAttributes);
-
-UserSchema.pre('save', function (next) {
-	const now = new Date();
-	this.dateModified = now;
-	if (!this.dateCreated) {
-		this.dateCreated = now;
-	}
-	next();
-});
+UserSchema.plugin(autoIncrement.plugin, {model: 'User', field: 'id', startAt: 100});
 
 const userModule = {};
 const UserModel = db.model('User', UserSchema);
