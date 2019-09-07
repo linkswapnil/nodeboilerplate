@@ -1,6 +1,7 @@
+/* eslint-disable handle-callback-err */
 import mongoose from 'mongoose';
 
-const db = mongoose.createConnection('mongodb://localhost/training');
+const db = mongoose.createConnection('mongodb://localhost/training', {useNewUrlParser: true});
 const {Schema} = mongoose;
 
 const userAttributes = {
@@ -22,11 +23,11 @@ UserSchema.pre('save', function (next) {
 	next();
 });
 
-const model = {};
+const userModule = {};
 const UserModel = db.model('User', UserSchema);
 
 // CREATE new User
-model.createUser = User => {
+userModule.createUser = User => {
 	return new Promise((resolve, reject) => {
 		const model = new UserModel(User);
 		model.save(err => {
@@ -39,16 +40,59 @@ model.createUser = User => {
 };
 
 // READ all Users
-model.getUsers = () => {
+userModule.getUsers = () => {
 	return new Promise((resolve, reject) => {
-		UserModel.find().exec('find', (err, Users) => {
+		UserModel.find().exec('find', (err, users) => {
 			if (err) {
 				reject(err);
 			} else {
-				resolve(Users);
+				resolve(users);
 			}
 		});
 	});
 };
 
-export default model;
+// UPDATE user: is the user to update
+userModule.updateUser = (userId, user) => {
+	const {name, emailId, address, age} = user;
+	return new Promise((resolve, reject) => {
+		UserModel.findOne({id: userId}, (err, document) => {
+			if (document) {
+				document.name = name;
+				document.emailId = emailId;
+				document.address = address;
+				document.age = age;
+				document.save((err, updatedDocument) => {
+					if (err) {
+						reject(err);
+					} else {
+						resolve(updatedDocument._doc);
+					}
+				});
+			} else {
+				reject('User not found');
+			}
+		});
+	});
+};
+
+// DELETE User
+userModule.deleteUser = userId => {
+	return new Promise((resolve, reject) => {
+		UserModel.findOne({id: userId}, (err, document) => {
+			if (document) {
+				document.remove(err => {
+					if (err) {
+						resolve(err);
+					} else {
+						resolve(document._doc);
+					}
+				});
+			} else {
+				reject('User not found');
+			}
+		});
+	});
+};
+
+export default userModule;

@@ -1,62 +1,48 @@
 /* eslint-disable new-cap */
-import fs from 'fs';
 import express from 'express';
 import validate from 'express-validation';
 import userValidator from '../validators/user';
 import userModel from '../models/usermodel';
 
-// Const users = JSON.parse(fs.readFileSync('./files/users.json'));
-
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	const users = userModel.getUsers();
+router.get('/', async (req, res) => {
+	const users = await userModel.getUsers();
 	const context = {
 		users
 	};
 	res.render('users', context);
 });
 
-router.post('/create', validate(userValidator), async (req, res, next) => {
+router.post('/', validate(userValidator), async (req, res) => {
 	const {user} = req.body;
 	try {
 		const newUser = await userModel.createUser(user);
-		res.send('User Created Succesfully' + newUser.id);
+		res.send(`User Created Succesfully id: ${newUser.id}`);
 	} catch (err) {
-		res.satus(500).send('Failed to create user' + err);
+		res.status(500).send(`Failed to create user ${err}`);
 	}
 });
 
-// Router.put('/:id', (req, res, next) => {
-// 	const {user} = req.body;
-// 	const userId = parseInt(req.params.id, 10);
-// 	for (let i = 0; i < users.length; i++) {
-// 		if (users[i].id === userId) {
-// 			users[i] = user;
-// 			users[i].id = userId;
-// 		}
-// 	}
-// 	fs.writeFileSync('./files/users.json', JSON.stringify(users));
-// 	res.send(users);
-// });
+router.put('/:id', async (req, res) => {
+	const {user} = req.body;
+	const userId = parseInt(req.params.id, 10);
+	try {
+		const updatedUser = await userModel.updateUser(userId, user);
+		res.send(updatedUser);
+	} catch (err) {
+		res.status(500).send(`Failed to update user reason: ${err}`);
+	}
+});
 
-// /* Delete a user . */
-// router.delete('/:id', (req, res, next) => {
-// 	const userId = parseInt(req.params.id, 10);
-// 	let index = -1;
-// 	for (let i = 0; i < users.length; i++) {
-// 		if (users[i].id === userId) {
-// 			index = i;
-// 			break;
-// 		}
-// 	}
-// 	if (index === -1) {
-// 		res.status(404).send('User Not Found');
-// 	} else {
-// 		users.splice(index, 1);
-// 	}
-// 	fs.writeFileSync('./files/users.json', JSON.stringify(users));
-// 	res.send(users);
-// });
+router.delete('/:id', async (req, res) => {
+	const userId = parseInt(req.params.id, 10);
+	try {
+		const updatedUser = await userModel.deleteUser(userId);
+		res.send(updatedUser);
+	} catch (err) {
+		res.status(500).send(`Failed to delete user reason: ${err}`);
+	}
+});
 
 export default router;
