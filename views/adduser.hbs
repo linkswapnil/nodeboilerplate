@@ -1,0 +1,33 @@
+<h3>Register user form</h3>
+<style>
+    div{
+        margin: 10px;
+    }
+    label{
+        width: 100px;
+        float: left;
+    }
+    input[type="submit"]{
+      margin-left: 110px;
+      margin-top: 10px;
+    }
+</style>
+<form method="post" action="/users">
+    <div>
+    <label for="name"> Name: </label>
+    <input id="name" name="name"/>
+    </div>
+    <div>
+    <label for="emailId"> EmailId: </label>
+    <input id="emailId" name="emailId"/>
+    </div>
+    <div>
+    <label for="age"> Age: </label>
+    <input id="age" type="number" name="age"/>
+    </div>
+    <div>
+    <label for="Address"> Address: </label>
+    <textarea rows="7" cols="80" id="address" name="address"></textarea>
+    </div>
+    <input type="submit" value="Save User"/>
+</form>

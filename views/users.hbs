@@ -1,5 +1,29 @@
+<style>
+    table{
+        margin: 0 auto;
+        width: 80%;
+        border-collapse: collapse;
+    }
+    table, td, th{
+        border: 1px solid black;
+       
+    }
+</style>
 <h1> User Management</h1>
-
+<a href="/users/add"> Add user</a>
+<table>
+  <th> Id </th>
+  <th> Name </th>
+  <th> Address </th>
+  <th> EmailId </th> 
+  <th> Age </th>     
 {{#each users}}
-   <h2>{{id}} - {{name}}</h2>
+    <tr> 
+        <td> {{id}}</td> 
+        <td>{{name}}</td> 
+        <td>{{address}}</td> 
+        <td>{{emailId}}</td> 
+        <td>{{age}}</td>
+    </tr>
 {{/each}}
+</table>
