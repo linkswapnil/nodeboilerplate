@@ -46,6 +46,18 @@ userModule.getUsers = () => {
 	});
 };
 
+userModule.getUsersByName = name => {
+	return new Promise((resolve, reject) => {
+		UserModel.find({name}).exec('find', (err, users) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(users);
+			}
+		});
+	});
+};
+
 // UPDATE user: is the user to update
 userModule.updateUser = (userId, user) => {
 	const {name, emailId, address, age} = user;

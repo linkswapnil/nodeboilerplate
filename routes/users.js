@@ -14,6 +14,14 @@ router.get('/', async (req, res) => {
 	res.render('users', context);
 });
 
+router.get('/search', async (req, res) => {
+	const users = await userModel.getUsersByName(req.query.name);
+	const context = {
+		users
+	};
+	res.render('users', context);
+});
+
 router.get('/add', async (req, res) => {
 	const users = await userModel.getUsers();
 	const context = {
@@ -25,8 +33,7 @@ router.get('/add', async (req, res) => {
 router.post('/', validate(userValidator), async (req, res) => {
 	const {name, emailId, age, address} = req.body;
 	try {
-		const newUser = await userModel.createUser({name, emailId, age, address});
-		// Res.send(`User Created Succesfully id: ${newUser.id}`);
+		await userModel.createUser({name, emailId, age, address});
 		res.redirect('/users');
 	} catch (err) {
 		res.status(500).send(`Failed to create user ${err}`);

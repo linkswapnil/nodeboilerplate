@@ -8,8 +8,17 @@
         border: 1px solid black;
        
     }
+    form{
+        width: 500px;
+        padding: 30px;
+        margin: 0 auto;
+    }
 </style>
 <h1> User Management</h1>
+<form method="get" action="/users/search">
+ <input name="name" placeholder="Enter user name to search"/>
+ <input type="submit" value="Search"/>
+</form>
 <a href="/users/add"> Add user</a>
 <table>
   <th> Id </th>
@@ -19,7 +28,7 @@
   <th> Age </th>     
 {{#each users}}
     <tr> 
-        <td> {{id}}</td> 
+        <td>{{id}}</td> 
         <td>{{name}}</td> 
         <td>{{address}}</td> 
         <td>{{emailId}}</td> 
