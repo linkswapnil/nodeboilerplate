@@ -32,6 +32,13 @@ app.use('/resources', express.static(path.join(__dirname, 'resources')));
 app.use('/', indexRouter);
 app.use('/users', users);
 
+app.use((err, req, res, next) => {
+	const {url} = req;
+	console.warn('url: ' + url);
+	res.locals.metaTags = {title: 'Page not found'};
+	res.render('404');
+});
+
 // Catch 404 and forward to error handler
 app.use((req, res) => {
 	const {url} = req;

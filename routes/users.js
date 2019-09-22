@@ -9,7 +9,10 @@ const router = express.Router();
 router.get('/', async (req, res) => {
 	const users = await userModel.getUsers();
 	const context = {
-		users
+		users,
+		user: {
+			name: 'Test edit'
+		}
 	};
 	res.render('users', context);
 });
